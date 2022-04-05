@@ -1,10 +1,5 @@
 #include "Screen_SSD1306.h"
 
-#define SSD1306_CONTROL_WRITE_CMD_SINGLE 0x80
-#define SSD1306_CONTROL_WRITE_CMD_MULTI 0x00
-#define SSD1306_CONTROL_WRITE_DATA_SINGLE 0xC0
-#define SSD1306_CONTROL_WRITE_DATA_MULTI 0x40
-
 void Screen_SSD1306::init()
 {
     send_init_commands();
@@ -37,7 +32,7 @@ void Screen_SSD1306::send_init_commands()
     };
 
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_multi_bytes();
 
     if (height == 32)
     {
@@ -54,7 +49,7 @@ void Screen_SSD1306::send_init_commands()
 void Screen_SSD1306::set_brightness(uint8_t value)
 {
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_multi_bytes();
     write_byte(0x81);
     write_byte(value);
     stop_transmit();
@@ -63,7 +58,7 @@ void Screen_SSD1306::set_brightness(uint8_t value)
 void Screen_SSD1306::up_down_invert()
 {
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_multi_bytes();
     if (direction == 0)
     {
         write_byte(0xA1);
@@ -81,7 +76,7 @@ void Screen_SSD1306::up_down_invert()
 void Screen_SSD1306::color_reverse()
 {
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_single_byte();
     write_byte(0xA7);
     stop_transmit();
 }
@@ -89,7 +84,7 @@ void Screen_SSD1306::color_reverse()
 void Screen_SSD1306::display_on()
 {
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_multi_bytes();
     // turn on the charge pump
     write_byte(0x8D);
     write_byte(0x14);
@@ -101,7 +96,7 @@ void Screen_SSD1306::display_on()
 void Screen_SSD1306::display_off()
 {
     start_transmit();
-    write_byte(SSD1306_CONTROL_WRITE_CMD_MULTI);
+    cmd_multi_bytes();
     // turn off the charge pump
     write_byte(0x8D);
     write_byte(0x10);
@@ -125,14 +120,14 @@ void Screen_SSD1306::draw_point(int x, int y, Color_1bit color)
 
     start_transmit();
 
-    write_byte(SSD1306_CONTROL_WRITE_CMD_SINGLE);
+    cmd_single_byte();
     write_byte(0xB0 + page_idx);
-    write_byte(SSD1306_CONTROL_WRITE_CMD_SINGLE);
+    cmd_single_byte();
     write_byte(((x >> 4) & 0x0F) | 0x10);
-    write_byte(SSD1306_CONTROL_WRITE_CMD_SINGLE);
+    cmd_single_byte();
     write_byte(x & 0x0F);
 
-    write_byte(SSD1306_CONTROL_WRITE_DATA_SINGLE);
+    data_multi_bytes();
     write_byte(tmp);
 
     stop_transmit();
@@ -145,13 +140,11 @@ void Screen_SSD1306::clear(Color_1bit color)
     for (int i = 0; i < 8; i++)
     {
         start_transmit();
-
-        write_byte(SSD1306_CONTROL_WRITE_CMD_SINGLE);
+        cmd_single_byte();
         write_byte(0xB0 + i);
-        write_byte(SSD1306_CONTROL_WRITE_DATA_MULTI);
+        data_multi_bytes();
         for (int x = 0; x < width; x++)
             write_byte(fill_value);
-
         stop_transmit();
     }
 }
