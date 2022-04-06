@@ -5,7 +5,7 @@
  * SSD1306 is a 128 x 64 Dot Matrix OLED/PLED Segment/Common Driver with Controller
  */
 
-#include <stdint.h>
+#include <cstdint>
 #include <functional>
 #include "Screen.h"
 #include "Screen_Color.h"

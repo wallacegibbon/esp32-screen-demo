@@ -1,4 +1,4 @@
-#include <stdint.h>
+#include <cstdint>
 #include "Screen_16bitColor_SPI.h"
 
 void Screen_16bitColor_SPI::init()

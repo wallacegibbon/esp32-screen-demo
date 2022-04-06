@@ -1,7 +1,7 @@
 #ifndef __COMMON_IIC_H
 #define __COMMON_IIC_H
 
-#include <stdint.h>
+#include <cstdint>
 #include "driver/i2c.h"
 #include <stdio.h>
 

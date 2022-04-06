@@ -1,7 +1,7 @@
 #ifndef __SCREEN_COLOR_H
 #define __SCREEN_COLOR_H
 
-#include <stdint.h>
+#include <cstdint>
 
 // R:G:B == 5:6:5
 enum Color_16bit : uint16_t

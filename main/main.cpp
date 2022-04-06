@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 #include "driver/i2c.h"
 #include "esp_log.h"
 #include "Screen_SSD1306.h"

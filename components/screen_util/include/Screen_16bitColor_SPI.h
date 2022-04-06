@@ -1,7 +1,7 @@
 #ifndef __SCREEN_16BITCOLOR_SPI_H
 #define __SCREEN_16BITCOLOR_SPI_H
 
-#include <stdint.h>
+#include <cstdint>
 #include "driver/spi_master.h"
 #include "driver/gpio.h"
 #include "Screen.h"

@@ -1,4 +1,4 @@
-#include <stdint.h>
+#include <cstdint>
 #include "Common_IIC.h"
 #include "esp_log.h"
 
