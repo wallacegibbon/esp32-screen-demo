@@ -16,7 +16,9 @@ void IIC_Dev::stop_transmit()
     i2c_master_stop(cmd_handle);
     esp_err = i2c_master_cmd_begin(dev, cmd_handle, 10 / portTICK_PERIOD_MS);
     if (esp_err != ESP_OK)
+    {
         ESP_LOGE("Common_IIC", "configuration failed, error code :%d", esp_err);
+    }
 
     i2c_cmd_link_delete(cmd_handle);
 }

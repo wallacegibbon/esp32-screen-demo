@@ -23,7 +23,6 @@ public:
     void draw_point_x(int x, int y, int a, int b, ColorType color);
     void draw_circle(int x, int y, int r, ColorType color);
 
-
 protected:
     int width;
     int height;
@@ -33,8 +32,12 @@ template <typename ColorType>
 void Screen<ColorType>::fill(int x1, int y1, int x2, int y2, ColorType color)
 {
     for (int i = x1; i < x2; i++)
+    {
         for (int j = y1; j < y2; j++)
+        {
             draw_point(i, j, color);
+        }
+    }
 }
 
 template <typename ColorType>
@@ -121,7 +124,9 @@ template <typename ColorType>
 void LinePainter<ColorType>::draw_line()
 {
     for (int i = 0; i <= distance; i++)
+    {
         draw_step();
+    }
 }
 
 template <typename ColorType>
@@ -163,7 +168,9 @@ void Screen<ColorType>::draw_circle(int x, int y, int r, ColorType color)
         draw_point_x(x, y, px, py, color);
         py++;
         if ((py * py + px * px) > r_square)
+        {
             px--;
+        }
     }
 }
 

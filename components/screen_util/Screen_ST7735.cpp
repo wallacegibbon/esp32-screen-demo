@@ -139,7 +139,9 @@ void Screen_ST7735::addr_set(int x1, int y1, int x2, int y2)
 void Screen_ST7735::draw_point(int x, int y, Color_16bit color)
 {
     if (x > width || y > height)
+    {
         return;
+    }
 
     addr_set(x, y, x, y);
     write_data(color);
@@ -149,6 +151,10 @@ void Screen_ST7735::fill(int x1, int y1, int x2, int y2, Color_16bit color)
 {
     addr_set(x1, y1, x2, y2);
     for (int i = y1; i <= y2; i++)
+    {
         for (int j = x1; j <= x2; j++)
+        {
             write_data(color);
+        }
+    }
 }

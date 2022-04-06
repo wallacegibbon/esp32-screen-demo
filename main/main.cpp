@@ -20,7 +20,7 @@ void i2c_device_init()
 
 Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
-static void update_loop_display()
+static void fancy_display_1()
 {
     static unsigned short current_color = 0;
     static bool color = false;
@@ -32,6 +32,28 @@ static void update_loop_display()
         scr1.flush();
     }
     vTaskDelay(10 / portTICK_PERIOD_MS);
+}
+
+static void fancy_display_2()
+{
+    static int cur = 0;
+    static int inc = 1;
+    for (int i = 0; i < 31; i++)
+    {
+        Color_1bit color = cur == i ? BLACK_1bit : WHITE_1bit;
+        scr1.draw_circle(64, 32, i, color);
+    }
+    scr1.flush();
+    if (cur == 31)
+    {
+        inc = -1;
+    }
+    else if (cur == 0)
+    {
+        inc = 1;
+    }
+    cur += inc;
+    // vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
 void entry()
@@ -49,7 +71,9 @@ void entry()
     scr1.flush();
     // scr1.enable_auto_flush();
     while (1)
-        update_loop_display();
+    {
+        fancy_display_2();
+    }
 }
 
 extern "C"
