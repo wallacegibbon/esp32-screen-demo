@@ -30,7 +30,9 @@ static void update_loop_display()
         current_color += 20;
         scr1.draw_circle(64, 32, i, static_cast<Color_1bit>(color));
         color = !color;
+        scr1.flush();
     }
+    vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
 void entry()
@@ -45,7 +47,8 @@ void entry()
     scr1.clear(BLACK_1bit);
     scr1.draw_rectangle(64 - 50, 32 - 20, 64 + 50, 32 + 20, WHITE_1bit);
     scr1.draw_circle(64 - 50, 32 - 20, 5, WHITE_1bit);
-
+    scr1.flush();
+    // scr1.enable_auto_flush();
     while (1)
         update_loop_display();
 }

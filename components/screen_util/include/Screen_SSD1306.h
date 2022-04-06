@@ -6,6 +6,7 @@
  */
 
 #include <stdint.h>
+#include <functional>
 #include "Screen.h"
 #include "Screen_Color.h"
 #include "Common_SPI.h"
@@ -22,11 +23,15 @@ public:
     void set_brightness(uint8_t value);
     void up_down_invert();
     void color_reverse();
+    void flush();
+    void enable_auto_flush() { auto_flush = true; }
+    void disable_auto_flush() { auto_flush = false; }
     void draw_point(int x, int y, Color_1bit color) override;
     void clear(Color_1bit color) override;
 
 private:
     void send_init_commands();
+    void iterate_screen(std::function<uint8_t(int, int)> fn);
 
     virtual void write_byte(uint8_t data) {}
     virtual void start_transmit() {}
@@ -39,6 +44,7 @@ private:
 
     uint8_t buf[128][8];
     int direction = 0;
+    bool auto_flush = false;
 };
 
 class Screen_SSD1306_IIC : public Screen_SSD1306
