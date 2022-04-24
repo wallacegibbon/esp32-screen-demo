@@ -1,7 +1,7 @@
-#include <iostream>
+#include "Screen_SSD1306.h"
 #include "driver/i2c.h"
 #include "esp_log.h"
-#include "Screen_SSD1306.h"
+#include <iostream>
 
 void i2c_device_init()
 {
@@ -76,10 +76,10 @@ void entry()
     }
 }
 
-extern "C"
+extern "C" {
+
+void app_main(void)
 {
-    void app_main(void)
-    {
-        entry();
-    }
+    entry();
+}
 }

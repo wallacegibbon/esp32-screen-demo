@@ -166,13 +166,11 @@ void Screen_SSD1306::iterate_screen(std::function<uint8_t(int, int)> fn)
 
 void Screen_SSD1306::flush()
 {
-    iterate_screen([this](int x, int page)
-                   { return buf[x][page]; });
+    iterate_screen([this](int x, int page) { return buf[x][page]; });
 }
 
 void Screen_SSD1306::clear(Color_1bit color)
 {
     uint8_t fill_value = color == WHITE_1bit ? 0xFF : 0;
-    iterate_screen([&](int x, int page)
-                   { return fill_value; });
+    iterate_screen([&](int x, int page) { return fill_value; });
 }

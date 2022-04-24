@@ -1,8 +1,8 @@
 #ifndef __COMMON_IIC_H
 #define __COMMON_IIC_H
 
-#include <cstdint>
 #include "driver/i2c.h"
+#include <cstdint>
 #include <stdio.h>
 
 class IIC_Dev

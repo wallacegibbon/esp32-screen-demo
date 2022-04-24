@@ -1,18 +1,20 @@
 #ifndef __SCREEN_16BITCOLOR_SPI_H
 #define __SCREEN_16BITCOLOR_SPI_H
 
-#include <cstdint>
-#include "driver/spi_master.h"
-#include "driver/gpio.h"
+#include "Common_SPI.h"
 #include "Screen.h"
 #include "Screen_Color.h"
-#include "Common_SPI.h"
+#include "driver/gpio.h"
+#include "driver/spi_master.h"
+#include <cstdint>
 
 class Screen_16bitColor_SPI : public Screen<Color_16bit>
 {
 public:
     Screen_16bitColor_SPI(int _dev, gpio_num_t _rst, gpio_num_t _dc, int width, int height)
-        : Screen(width, height), dev(_dev), rst(_rst), dc(_dc) {}
+        : Screen(width, height), dev(_dev), rst(_rst), dc(_dc)
+    {
+    }
 
     void init();
 

@@ -1,5 +1,5 @@
-#include <cstdint>
 #include "Screen_16bitColor_SPI.h"
+#include <cstdint>
 
 void Screen_16bitColor_SPI::init()
 {

@@ -74,21 +74,13 @@ template <typename ColorType>
 class LinePainter
 {
 public:
-    LinePainter(Screen<ColorType> &_screen, int x1, int y1, int x2, int y2, ColorType color1)
-        : screen(_screen), x(x1), y(y1), delta_x(x2 - x1), delta_y(y2 - y1), color(color1)
-    {
-        step_x = unit_value(delta_x);
-        step_y = unit_value(delta_y);
-        delta_x = abs(delta_x);
-        delta_y = abs(delta_y);
-        distance = max(delta_x, delta_y);
-    }
-
+    LinePainter(Screen<ColorType> &_screen, int x1, int y1, int x2, int y2, ColorType color1);
     void draw_line();
 
 private:
     void draw_step();
 
+private:
     Screen<ColorType> &screen;
     int x;
     int y;
@@ -101,6 +93,17 @@ private:
     int acc_y = 0;
     ColorType color;
 };
+
+template <typename ColorType>
+LinePainter<ColorType>::LinePainter(Screen<ColorType> &_screen, int x1, int y1, int x2, int y2, ColorType color1)
+    : screen(_screen), x(x1), y(y1), delta_x(x2 - x1), delta_y(y2 - y1), color(color1)
+{
+    step_x = unit_value(delta_x);
+    step_y = unit_value(delta_y);
+    delta_x = abs(delta_x);
+    delta_y = abs(delta_y);
+    distance = max(delta_x, delta_y);
+}
 
 template <typename ColorType>
 void LinePainter<ColorType>::draw_step()

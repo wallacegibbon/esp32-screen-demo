@@ -5,12 +5,12 @@
  * SSD1306 is a 128 x 64 Dot Matrix OLED/PLED Segment/Common Driver with Controller
  */
 
-#include <cstdint>
-#include <functional>
+#include "Common_IIC.h"
+#include "Common_SPI.h"
 #include "Screen.h"
 #include "Screen_Color.h"
-#include "Common_SPI.h"
-#include "Common_IIC.h"
+#include <cstdint>
+#include <functional>
 
 class Screen_SSD1306 : public Screen<Color_1bit>
 {
@@ -55,8 +55,7 @@ class Screen_SSD1306_IIC : public Screen_SSD1306
     static constexpr uint8_t CTRL_WRITE_DATA_MULTI = 0x40;
 
 public:
-    Screen_SSD1306_IIC(int _dev, int addr, int width, int height)
-        : Screen_SSD1306(width, height), dev(_dev, addr) {}
+    Screen_SSD1306_IIC(int _dev, int addr, int width, int height) : Screen_SSD1306(width, height), dev(_dev, addr) {}
 
     void init() { Screen_SSD1306::init(); }
 

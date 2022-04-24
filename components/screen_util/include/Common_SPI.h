@@ -1,8 +1,8 @@
 #ifndef __COMMON_SPI_H
 #define __COMMON_SPI_H
 
-#include <cstdint>
 #include "driver/spi_master.h"
+#include <cstdint>
 
 class SPI_Dev
 {
