@@ -7,26 +7,26 @@ void Screen_SSD1306::init() {
 
 void Screen_SSD1306::send_init_commands() {
     static const uint8_t init_commands[] = {
-        /* normal direction, can be changed by method `up_down_invert` */
-        0xA0, 0xC0,
+            /* normal direction, can be changed by method `up_down_invert` */
+            0xA0, 0xC0,
 
-        /* vertical shift, 0 ~ 63 */
-        // 0xD3, 20,
+            /* vertical shift, 0 ~ 63 */
+            // 0xD3, 20,
 
-        /* Ratio/Oscillator & Clock Divide */
-        // 0xD5, 0xF0,
+            /* Ratio/Oscillator & Clock Divide */
+            // 0xD5, 0xF0,
 
-        // 0xD9, 0x22,
+            // 0xD9, 0x22,
     };
 
     static const uint8_t fix_32row_command[] = {
-        /* ... */
-        0xA8,
-        0x1F,
+            /* ... */
+            0xA8,
+            0x1F,
 
-        /* ... */
-        0xDA,
-        0x02,
+            /* ... */
+            0xDA,
+            0x02,
     };
 
     start_transmit();

@@ -86,7 +86,7 @@ private:
 
 template <typename ColorType>
 LinePainter<ColorType>::LinePainter(Screen<ColorType> &_screen, int x1, int y1, int x2, int y2, ColorType color1)
-    : screen(_screen), x(x1), y(y1), delta_x(x2 - x1), delta_y(y2 - y1), color(color1) {
+        : screen(_screen), x(x1), y(y1), delta_x(x2 - x1), delta_y(y2 - y1), color(color1) {
     step_x = unit_value(delta_x);
     step_y = unit_value(delta_y);
     delta_x = abs(delta_x);
