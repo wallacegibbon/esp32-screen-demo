@@ -4,8 +4,7 @@
 #include "driver/spi_master.h"
 #include <cstdint>
 
-class SPI_Dev
-{
+class SPI_Dev {
 public:
     SPI_Dev(int _dev) : dev(_dev) {}
 

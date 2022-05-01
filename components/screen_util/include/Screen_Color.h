@@ -4,8 +4,7 @@
 #include <cstdint>
 
 // R:G:B == 5:6:5
-enum Color_16bit : uint16_t
-{
+enum Color_16bit : uint16_t {
     WHITE_16bit = 0xFFFF,
     BLACK_16bit = 0x0000,
     BLUE_16bit = 0x001F,
@@ -31,8 +30,7 @@ enum Color_16bit : uint16_t
     LBBLUE_16bit = 0X2B12,
 };
 
-enum Color_1bit : uint8_t
-{
+enum Color_1bit : uint8_t {
     WHITE_1bit = 1,
     BLACK_1bit = 0,
 };

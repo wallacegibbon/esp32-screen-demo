@@ -1,8 +1,7 @@
 #include "Screen_ST7735.h"
 #include "freertos/task.h"
 
-void Screen_ST7735::init()
-{
+void Screen_ST7735::init() {
     Screen_16bitColor_SPI::init();
 
     rst_low();
@@ -14,8 +13,7 @@ void Screen_ST7735::init()
     send_init_commands();
 }
 
-void Screen_ST7735::send_init_commands()
-{
+void Screen_ST7735::send_init_commands() {
     // turn off sleep mode
     write_cmd(0x11);
     vTaskDelay(100 / portTICK_PERIOD_MS);
@@ -120,8 +118,7 @@ void Screen_ST7735::send_init_commands()
     write_cmd(0x29); // Display On
 }
 
-void Screen_ST7735::addr_set(int x1, int y1, int x2, int y2)
-{
+void Screen_ST7735::addr_set(int x1, int y1, int x2, int y2) {
     // column address settings
     write_cmd(0x2A);
     write_data(x1 + 1);
@@ -136,10 +133,8 @@ void Screen_ST7735::addr_set(int x1, int y1, int x2, int y2)
     write_cmd(0x2C);
 }
 
-void Screen_ST7735::draw_point(int x, int y, Color_16bit color)
-{
-    if (x > width || y > height)
-    {
+void Screen_ST7735::draw_point(int x, int y, Color_16bit color) {
+    if (x > width || y > height) {
         return;
     }
 
@@ -147,13 +142,10 @@ void Screen_ST7735::draw_point(int x, int y, Color_16bit color)
     write_data(color);
 }
 
-void Screen_ST7735::fill(int x1, int y1, int x2, int y2, Color_16bit color)
-{
+void Screen_ST7735::fill(int x1, int y1, int x2, int y2, Color_16bit color) {
     addr_set(x1, y1, x2, y2);
-    for (int i = y1; i <= y2; i++)
-    {
-        for (int j = x1; j <= x2; j++)
-        {
+    for (int i = y1; i <= y2; i++) {
+        for (int j = x1; j <= x2; j++) {
             write_data(color);
         }
     }

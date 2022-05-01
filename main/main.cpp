@@ -3,8 +3,7 @@
 #include "esp_log.h"
 #include <iostream>
 
-void i2c_device_init()
-{
+void i2c_device_init() {
     i2c_config_t config;
     config.mode = I2C_MODE_MASTER;
     config.sda_io_num = GPIO_NUM_22;
@@ -20,12 +19,10 @@ void i2c_device_init()
 
 Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
-static void fancy_display_1()
-{
+static void fancy_display_1() {
     static unsigned short current_color = 0;
     static bool color = false;
-    for (int i = 0; i < 31; i++)
-    {
+    for (int i = 0; i < 31; i++) {
         current_color += 20;
         scr1.draw_circle(64, 32, i, static_cast<Color_1bit>(color));
         color = !color;
@@ -34,30 +31,24 @@ static void fancy_display_1()
     vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
-static void fancy_display_2()
-{
+static void fancy_display_2() {
     static int cur = 0;
     static int inc = 1;
-    for (int i = 0; i < 31; i++)
-    {
+    for (int i = 0; i < 31; i++) {
         Color_1bit color = cur == i ? BLACK_1bit : WHITE_1bit;
         scr1.draw_circle(64, 32, i, color);
     }
     scr1.flush();
-    if (cur == 31)
-    {
+    if (cur == 31) {
         inc = -1;
-    }
-    else if (cur == 0)
-    {
+    } else if (cur == 0) {
         inc = 1;
     }
     cur += inc;
     // vTaskDelay(10 / portTICK_PERIOD_MS);
 }
 
-void entry()
-{
+void entry() {
     std::cout << "hello, this message is from the entry." << std::endl;
     std::cout << "another line." << std::endl;
 
@@ -70,16 +61,11 @@ void entry()
     scr1.draw_circle(64 - 50, 32 - 20, 5, WHITE_1bit);
     scr1.flush();
     // scr1.enable_auto_flush();
-    while (1)
-    {
+    while (1) {
         fancy_display_2();
     }
 }
 
 extern "C" {
-
-void app_main(void)
-{
-    entry();
-}
+void app_main(void) { entry(); }
 }

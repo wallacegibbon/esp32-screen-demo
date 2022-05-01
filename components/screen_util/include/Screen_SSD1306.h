@@ -12,8 +12,7 @@
 #include <cstdint>
 #include <functional>
 
-class Screen_SSD1306 : public Screen<Color_1bit>
-{
+class Screen_SSD1306 : public Screen<Color_1bit> {
 public:
     Screen_SSD1306(int width, int height) : Screen(width, height) {}
 
@@ -47,8 +46,7 @@ private:
     bool auto_flush = false;
 };
 
-class Screen_SSD1306_IIC : public Screen_SSD1306
-{
+class Screen_SSD1306_IIC : public Screen_SSD1306 {
     static constexpr uint8_t CTRL_WRITE_CMD_SINGLE = 0x80;
     static constexpr uint8_t CTRL_WRITE_CMD_MULTI = 0x00;
     static constexpr uint8_t CTRL_WRITE_DATA_SINGLE = 0xC0;

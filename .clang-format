@@ -1,8 +1,5 @@
-BasedOnStyle: Microsoft
-
+BasedOnStyle: LLVM
+IndentWidth: 4
 AccessModifierOffset: -4
-AllowShortFunctionsOnASingleLine: Inline
-AllowShortBlocksOnASingleLine: Always
-AllowShortEnumsOnASingleLine: true
-IndentExternBlock: NoIndent
+ColumnLimit: 120
 AlwaysBreakTemplateDeclarations: Yes

@@ -5,8 +5,7 @@
 #include <cstdint>
 #include <stdio.h>
 
-class IIC_Dev
-{
+class IIC_Dev {
 public:
     IIC_Dev(int _dev, int _addr) : dev(_dev), addr(_addr << 1) {}
 
