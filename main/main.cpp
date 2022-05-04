@@ -35,7 +35,7 @@ static void fancy_display_2() {
     static int cur = 0;
     static int inc = 1;
     for (int i = 0; i < 31; i++) {
-        Color_1bit color = cur == i ? BLACK_1bit : WHITE_1bit;
+        Color_1bit color = cur == i ? Color_1bit::BLACK : Color_1bit::WHITE;
         scr1.draw_circle(64, 32, i, color);
     }
     scr1.flush();
@@ -56,9 +56,9 @@ void entry() {
 
     scr1.init();
     // scr1.up_down_invert();
-    scr1.clear(BLACK_1bit);
-    scr1.draw_rectangle(64 - 50, 32 - 20, 64 + 50, 32 + 20, WHITE_1bit);
-    scr1.draw_circle(64 - 50, 32 - 20, 5, WHITE_1bit);
+    // scr1.clear(Color_1bit::BLACK);
+    scr1.draw_rectangle(64 - 50, 32 - 20, 64 + 50, 32 + 20, Color_1bit::WHITE);
+    scr1.draw_circle(64 - 50, 32 - 20, 5, Color_1bit::WHITE);
     scr1.flush();
     // scr1.enable_auto_flush();
     while (1) {

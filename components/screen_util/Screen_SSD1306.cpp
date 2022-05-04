@@ -106,7 +106,7 @@ void Screen_SSD1306::draw_point(int x, int y, Color_1bit color) {
 
     int tmp = buf[x][page_idx];
     tmp &= ~(1 << byte_idx);
-    tmp |= color << byte_idx;
+    tmp |= static_cast<int>(color) << byte_idx;
     buf[x][page_idx] = tmp;
 
     if (!auto_flush) {
@@ -150,6 +150,6 @@ void Screen_SSD1306::flush() {
 }
 
 void Screen_SSD1306::clear(Color_1bit color) {
-    uint8_t fill_value = color == WHITE_1bit ? 0xFF : 0;
+    uint8_t fill_value = color == Color_1bit::WHITE ? 0xFF : 0;
     iterate_screen([&](int x, int page) { return fill_value; });
 }
