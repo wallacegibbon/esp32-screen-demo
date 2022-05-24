@@ -7,24 +7,24 @@ void Screen_SSD1306::init() {
 
 void Screen_SSD1306::send_init_commands() {
     static const uint8_t init_commands[] = {
-            /* normal direction, can be changed by method `up_down_invert` */
+            /// normal direction, can be changed by method `up_down_invert`
             0xA0, 0xC0,
 
-            /* vertical shift, 0 ~ 63 */
+            /// vertical shift, 0 ~ 63
             // 0xD3, 20,
 
-            /* Ratio/Oscillator & Clock Divide */
+            /// Ratio/Oscillator & Clock Divide
             // 0xD5, 0xF0,
 
             // 0xD9, 0x22,
     };
 
     static const uint8_t fix_32row_command[] = {
-            /* ... */
+            ///
             0xA8,
             0x1F,
 
-            /* ... */
+            ///
             0xDA,
             0x02,
     };
@@ -77,10 +77,10 @@ void Screen_SSD1306::color_reverse() {
 void Screen_SSD1306::display_on() {
     start_transmit();
     cmd_multi_bytes();
-    // turn on the charge pump
+    /// turn on the charge pump
     write_byte(0x8D);
     write_byte(0x14);
-    // turn on display
+    /// turn on display
     write_byte(0xAF);
     stop_transmit();
 }
@@ -88,10 +88,10 @@ void Screen_SSD1306::display_on() {
 void Screen_SSD1306::display_off() {
     start_transmit();
     cmd_multi_bytes();
-    // turn off the charge pump
+    /// turn off the charge pump
     write_byte(0x8D);
     write_byte(0x10);
-    // turn off display
+    /// turn off display
     write_byte(0xAE);
     stop_transmit();
 }

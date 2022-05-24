@@ -1,9 +1,7 @@
 #ifndef __SCREEN_ST7735_H
 #define __SCREEN_ST7735_H
 
-/**
- * ST7735 is a 132RGB x 162dot 262K Color with Frame Memory Single-Chip TFT Controller/Driver
- */
+/// ST7735 is a 132RGB x 162dot 262K Color with Frame Memory Single-Chip TFT Controller/Driver
 
 #include "Screen_16bitColor_SPI.h"
 

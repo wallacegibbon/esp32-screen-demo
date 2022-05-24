@@ -1,9 +1,7 @@
 #ifndef __SCREEN_SSD1306_H
 #define __SCREEN_SSD1306_H
 
-/**
- * SSD1306 is a 128 x 64 Dot Matrix OLED/PLED Segment/Common Driver with Controller
- */
+/// SSD1306 is a 128 x 64 Dot Matrix OLED/PLED Segment/Common Driver with Controller
 
 #include "Common_IIC.h"
 #include "Common_SPI.h"

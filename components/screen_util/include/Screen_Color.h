@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-// R:G:B == 5:6:5
+/// For 16 bit color, Red:Green:Blue == 5:6:5
 enum class Color_16bit : uint16_t {
     WHITE = 0xFFFF,
     BLACK = 0x0000,
@@ -17,7 +17,7 @@ enum class Color_16bit : uint16_t {
     CYAN = 0x7FFF,
     YELLOW = 0xFFE0,
     BROWN = 0XBC40,
-    BRRED = 0XFC07, // maroon
+    BRRED = 0XFC07, /// maroon
     GRAY = 0X8430,
 
     DARKBLUE = 0X01CF,

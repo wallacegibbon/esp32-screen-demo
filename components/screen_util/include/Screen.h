@@ -6,11 +6,11 @@ class Screen {
 public:
     Screen(int _width, int _height) : width(_width), height(_height) {}
 
-    // the basic drawing functions
+    /// the basic drawing functions
     virtual void draw_point(int x, int y, ColorType color) {}
 
-    // the default `fill` is based on `draw_point`, which may be inefficient.
-    // Override this method when there are more efficient way.
+    /// the default `fill` is based on `draw_point`, which may be inefficient.
+    /// Override this method when there are more efficient way.
     virtual void fill(int x1, int y1, int x2, int y2, ColorType color);
     virtual void clear(ColorType color);
 
@@ -18,7 +18,7 @@ public:
     void draw_line(int x1, int y1, int x2, int y2, ColorType color);
     void draw_rectangle(int x1, int y1, int x2, int y2, ColorType color);
 
-    // helper for drawing circle
+    /// helper for drawing circle
     void draw_point_x(int x, int y, int a, int b, ColorType color);
     void draw_circle(int x, int y, int r, ColorType color);
 
