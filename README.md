@@ -26,3 +26,9 @@ to you settings file (~/.config/Code/User/settings.json)
 }
 ```
 
+### Notice
+
+The cmake tools in VSCode will create the `build` directory automatically, which is not compatible with
+the ESP32-way.
+You can try remove the `build` directory then `Ctrl-P`, `ESP-IDF: Build your project`, which may
+fix this problem.
