@@ -1,17 +1,15 @@
 ## Introduction
 
-`screen-util` (in the components directory) is a screen utility (C++ classes) for ESP32 series MCUs.
-This is the demo project that is using the `screen-util` library.
-
+`screen-util` (in the `components` directory) is a set of screen utilities written in C++ for ESP32 series MCUs.
 
 ## VSCode and CMake
 
-To prepare the environment for ESP32 development, you need to add the follow configuration
-to you settings file (~/.config/Code/User/settings.json)
+To prepare the environment for ESP32 development, you need to add the follow configurations
+to you settings file (For Linux, it's ~/.config/Code/User/settings.json)
 
 > If you install the ESPIDF extension, this should have been done automatically.
 
-> The following example contains user-specific path, change it when necessary
+> The following example contains user-specific pathes, change it when necessary.
 
 ```jsonc
 {
@@ -28,7 +26,8 @@ to you settings file (~/.config/Code/User/settings.json)
 
 ### Notice
 
-The cmake tools in VSCode will create the `build` directory automatically, which is not compatible with
-the ESP32-way.
-You can try remove the `build` directory then `Ctrl-P`, `ESP-IDF: Build your project`, which may
-fix this problem.
+The first time you open the project, the CMake extension of VSCode will create the `build` directory
+based on CMakeLists.txt automatically, which is not what ESP32 needs.
+
+You can try removing the `build` directory and then `Ctrl-P` > `ESP-IDF: Build your project`,
+which should fix this problem.
