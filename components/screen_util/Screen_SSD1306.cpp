@@ -32,7 +32,7 @@ void Screen_SSD1306::send_init_commands() {
     start_transmit();
     cmd_multi_bytes();
 
-    if (height == 32) {
+    if (height_ == 32) {
         for (uint8_t cmd : fix_32row_command) {
             write_byte(cmd);
         }
@@ -96,18 +96,18 @@ void Screen_SSD1306::display_off() {
     stop_transmit();
 }
 
-void Screen_SSD1306::draw_point(int x, int y, Color_1bit color) {
-    if (x >= width || y >= height) {
+void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
+    if (p.x() >= width_ || p.y() >= height_) {
         return;
     }
 
-    int page_idx = y / 8;
-    int byte_idx = y % 8;
+    int page_idx = p.y() / 8;
+    int byte_idx = p.y() % 8;
 
-    int tmp = buf[x][page_idx];
+    int tmp = buf[p.x()][page_idx];
     tmp &= ~(1 << byte_idx);
     tmp |= static_cast<int>(color) << byte_idx;
-    buf[x][page_idx] = tmp;
+    buf[p.x()][page_idx] = tmp;
 
     if (!auto_flush) {
         return;
@@ -117,9 +117,9 @@ void Screen_SSD1306::draw_point(int x, int y, Color_1bit color) {
     cmd_single_byte();
     write_byte(0xB0 + page_idx);
     cmd_single_byte();
-    write_byte(((x >> 4) & 0x0F) | 0x10);
+    write_byte(((p.x() >> 4) & 0x0F) | 0x10);
     cmd_single_byte();
-    write_byte(x & 0x0F);
+    write_byte(p.x() & 0x0F);
 
     data_single_byte();
     write_byte(tmp);
@@ -137,7 +137,7 @@ void Screen_SSD1306::iterate_screen(std::function<uint8_t(int, int)> fn) {
         write_byte(0x10);
 
         data_multi_bytes();
-        for (int x = 0; x < width; x++) {
+        for (int x = 0; x < width_; x++) {
             write_byte(fn(x, page));
         }
 

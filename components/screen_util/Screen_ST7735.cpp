@@ -119,33 +119,33 @@ void Screen_ST7735::send_init_commands() {
     write_cmd(0x29);
 }
 
-void Screen_ST7735::addr_set(int x1, int y1, int x2, int y2) {
+void Screen_ST7735::addr_set(const Point &p1, const Point &p2) {
     /// column address settings
     write_cmd(0x2A);
-    write_data(x1 + 1);
-    write_data(x2 + 1);
+    write_data(p1.x() + 1);
+    write_data(p2.x() + 1);
 
     /// row address setting
     write_cmd(0x2B);
-    write_data(y1 + 26);
-    write_data(y2 + 26);
+    write_data(p1.y() + 26);
+    write_data(p2.y() + 26);
 
     /// memory write
     write_cmd(0x2C);
 }
 
-void Screen_ST7735::draw_point(int x, int y, Color_16bit color) {
-    if (x > width || y > height) {
+void Screen_ST7735::draw_point(const Point &p, Color_16bit color) {
+    if (p.x() > width_ || p.y() > height_) {
         return;
     }
-    addr_set(x, y, x, y);
+    addr_set(p, p);
     write_data(static_cast<uint16_t>(color));
 }
 
-void Screen_ST7735::fill(int x1, int y1, int x2, int y2, Color_16bit color) {
-    addr_set(x1, y1, x2, y2);
-    for (int i = y1; i <= y2; i++) {
-        for (int j = x1; j <= x2; j++) {
+void Screen_ST7735::fill(const Point &p1, const Point &p2, Color_16bit color) {
+    addr_set(p1, p2);
+    for (int i = p1.y(); i <= p2.y(); i++) {
+        for (int j = p1.x(); j <= p2.x(); j++) {
             write_data(static_cast<uint16_t>(color));
         }
     }

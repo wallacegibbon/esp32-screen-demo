@@ -23,7 +23,7 @@ public:
     void flush();
     void enable_auto_flush() { auto_flush = true; }
     void disable_auto_flush() { auto_flush = false; }
-    void draw_point(int x, int y, Color_1bit color) override;
+    void draw_point(const Point &p, Color_1bit color) override;
     void clear(Color_1bit color) override;
 
 private:

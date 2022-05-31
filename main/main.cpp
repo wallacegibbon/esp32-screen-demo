@@ -24,7 +24,7 @@ static void fancy_display_1() {
     static bool color = false;
     for (int i = 0; i < 31; i++) {
         current_color += 20;
-        scr1.draw_circle(64, 32, i, static_cast<Color_1bit>(color));
+        scr1.draw_circle(Point(64, 32), i, static_cast<Color_1bit>(color));
         color = !color;
         scr1.flush();
     }
@@ -36,7 +36,7 @@ static void fancy_display_2() {
     static int inc = 1;
     for (int i = 0; i < 31; i++) {
         Color_1bit color = cur == i ? Color_1bit::BLACK : Color_1bit::WHITE;
-        scr1.draw_circle(64, 32, i, color);
+        scr1.draw_circle(Point(64, 32), i, color);
     }
     scr1.flush();
     if (cur == 31) {
@@ -57,8 +57,8 @@ void entry() {
     scr1.init();
     // scr1.up_down_invert();
     // scr1.clear(Color_1bit::BLACK);
-    scr1.draw_rectangle(64 - 50, 32 - 20, 64 + 50, 32 + 20, Color_1bit::WHITE);
-    scr1.draw_circle(64 - 50, 32 - 20, 5, Color_1bit::WHITE);
+    scr1.draw_rectangle(Point(64 - 50, 32 - 20), Point(64 + 50, 32 + 20), Color_1bit::WHITE);
+    scr1.draw_circle(Point(64 - 50, 32 - 20), 5, Color_1bit::WHITE);
     scr1.flush();
     // scr1.enable_auto_flush();
     while (1) {
