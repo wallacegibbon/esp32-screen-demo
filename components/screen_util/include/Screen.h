@@ -81,50 +81,50 @@ static inline T unit_value(T v) {
 template <typename ColorType>
 class LinePainter {
 public:
-    LinePainter(Screen<ColorType> &_screen, const Point &p1, const Point &p2, ColorType color1);
+    LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color1);
     void draw_line();
 
 private:
     void draw_step();
 
 private:
-    Screen<ColorType> &screen;
-    CommonXY cursor;
-    CommonXY delta;
-    CommonXY step;
-    CommonXY acc;
-    int distance;
-    ColorType color;
+    Screen<ColorType> &screen_;
+    CommonXY cursor_;
+    CommonXY delta_;
+    CommonXY step_;
+    CommonXY acc_;
+    int distance_;
+    ColorType color_;
 };
 
 template <typename ColorType>
-LinePainter<ColorType>::LinePainter(Screen<ColorType> &_screen, const Point &p1, const Point &p2, ColorType color1)
-        : screen(_screen), cursor(p1), delta(p2.x() - p1.x(), p2.y() - p1.y()), color(color1) {
-    step.set_x(unit_value(delta.x()));
-    step.set_y(unit_value(delta.y()));
-    delta.set_x(abs(delta.x()));
-    delta.set_y(abs(delta.y()));
-    distance = max(delta.x(), delta.y());
+LinePainter<ColorType>::LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color)
+        : screen_(screen), cursor_(p1), delta_(p2.x() - p1.x(), p2.y() - p1.y()), color_(color) {
+    step_.set_x(unit_value(delta_.x()));
+    step_.set_y(unit_value(delta_.y()));
+    delta_.set_x(abs(delta_.x()));
+    delta_.set_y(abs(delta_.y()));
+    distance_ = max(delta_.x(), delta_.y());
 }
 
 template <typename ColorType>
 void LinePainter<ColorType>::draw_step() {
-    screen.draw_point(cursor, color);
-    acc.set_x(acc.x() + delta.x());
-    if (acc.x() >= distance) {
-        acc.set_x(acc.x() - distance);
-        cursor.set_x(cursor.x() + step.x());
+    screen_.draw_point(cursor_, color_);
+    acc_.set_x(acc_.x() + delta_.x());
+    if (acc_.x() >= distance_) {
+        acc_.set_x(acc_.x() - distance_);
+        cursor_.set_x(cursor_.x() + step_.x());
     }
-    acc.set_y(acc.y() + delta.y());
-    if (acc.y() >= distance) {
-        acc.set_y(acc.y() - distance);
-        cursor.set_y(cursor.y() + step.y());
+    acc_.set_y(acc_.y() + delta_.y());
+    if (acc_.y() >= distance_) {
+        acc_.set_y(acc_.y() - distance_);
+        cursor_.set_y(cursor_.y() + step_.y());
     }
 }
 
 template <typename ColorType>
 void LinePainter<ColorType>::draw_line() {
-    for (int i = 0; i <= distance; i++) {
+    for (int i = 0; i <= distance_; i++) {
         draw_step();
     }
 }

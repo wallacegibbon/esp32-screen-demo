@@ -21,8 +21,8 @@ public:
     void up_down_invert();
     void color_reverse();
     void flush();
-    void enable_auto_flush() { auto_flush = true; }
-    void disable_auto_flush() { auto_flush = false; }
+    void enable_auto_flush() { auto_flush_ = true; }
+    void disable_auto_flush() { auto_flush_ = false; }
     void draw_point(const Point &p, Color_1bit color) override;
     void clear(Color_1bit color) override;
 
@@ -39,9 +39,10 @@ private:
     virtual void cmd_single_byte() {}
     virtual void cmd_multi_bytes() {}
 
-    uint8_t buf[128][8];
-    int direction = 0;
-    bool auto_flush = false;
+private:
+    uint8_t buf_[128][8];
+    int direction_ = 0;
+    bool auto_flush_ = false;
 };
 
 class Screen_SSD1306_IIC : public Screen_SSD1306 {
@@ -51,21 +52,22 @@ class Screen_SSD1306_IIC : public Screen_SSD1306 {
     static constexpr uint8_t CTRL_WRITE_DATA_MULTI = 0x40;
 
 public:
-    Screen_SSD1306_IIC(int _dev, int addr, int width, int height) : Screen_SSD1306(width, height), dev(_dev, addr) {}
+    Screen_SSD1306_IIC(int dev, int addr, int width, int height) : Screen_SSD1306(width, height), dev_(dev, addr) {}
 
     void init() { Screen_SSD1306::init(); }
 
 private:
-    void write_byte(uint8_t data) override { dev.write_byte(data); }
-    void start_transmit() override { dev.start_transmit(); }
-    void stop_transmit() override { dev.stop_transmit(); }
+    void write_byte(uint8_t data) override { dev_.write_byte(data); }
+    void start_transmit() override { dev_.start_transmit(); }
+    void stop_transmit() override { dev_.stop_transmit(); }
 
     void data_single_byte() override { write_byte(CTRL_WRITE_DATA_SINGLE); }
     void data_multi_bytes() override { write_byte(CTRL_WRITE_DATA_MULTI); }
     void cmd_single_byte() override { write_byte(CTRL_WRITE_CMD_SINGLE); }
     void cmd_multi_bytes() override { write_byte(CTRL_WRITE_CMD_MULTI); }
 
-    IIC_Dev dev;
+private:
+    IIC_Dev dev_;
 };
 
 #endif

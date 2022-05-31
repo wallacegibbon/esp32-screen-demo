@@ -6,13 +6,13 @@
 
 class SPI_Dev {
 public:
-    SPI_Dev(int _dev) : dev(_dev) {}
+    SPI_Dev(int dev) : dev_(dev) {}
 
     void init() {}
     void write_byte(uint8_t data) {}
 
 private:
-    int dev;
+    int dev_;
 };
 
 #endif

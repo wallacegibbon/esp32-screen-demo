@@ -56,14 +56,14 @@ void Screen_SSD1306::set_brightness(uint8_t value) {
 void Screen_SSD1306::up_down_invert() {
     start_transmit();
     cmd_multi_bytes();
-    if (direction == 0) {
+    if (direction_ == 0) {
         write_byte(0xA1);
         write_byte(0xC8);
     } else {
         write_byte(0xA0);
         write_byte(0xC0);
     }
-    direction = !direction;
+    direction_ = !direction_;
     stop_transmit();
 }
 
@@ -104,12 +104,12 @@ void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
     int page_idx = p.y() / 8;
     int byte_idx = p.y() % 8;
 
-    int tmp = buf[p.x()][page_idx];
+    int tmp = buf_[p.x()][page_idx];
     tmp &= ~(1 << byte_idx);
     tmp |= static_cast<int>(color) << byte_idx;
-    buf[p.x()][page_idx] = tmp;
+    buf_[p.x()][page_idx] = tmp;
 
-    if (!auto_flush) {
+    if (!auto_flush_) {
         return;
     }
 
@@ -146,7 +146,7 @@ void Screen_SSD1306::iterate_screen(std::function<uint8_t(int, int)> fn) {
 }
 
 void Screen_SSD1306::flush() {
-    iterate_screen([this](int x, int page) { return buf[x][page]; });
+    iterate_screen([this](int x, int page) { return buf_[x][page]; });
 }
 
 void Screen_SSD1306::clear(Color_1bit color) {
