@@ -8,6 +8,8 @@
 #include "driver/spi_master.h"
 #include <cstdint>
 
+namespace screen {
+
 class Screen_16bitColor_SPI : public Screen<Color_16bit> {
 public:
     Screen_16bitColor_SPI(int dev, gpio_num_t rst, gpio_num_t dc, int width, int height)
@@ -32,5 +34,7 @@ private:
     gpio_num_t rst_;
     gpio_num_t dc_;
 };
+
+} // namespace screen
 
 #endif

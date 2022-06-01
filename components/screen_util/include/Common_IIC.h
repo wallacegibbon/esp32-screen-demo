@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <stdio.h>
 
+namespace screen {
+
 class IIC_Dev {
 public:
     IIC_Dev(int dev, int addr) : dev_(dev), addr_(addr << 1) {}
@@ -18,5 +20,7 @@ private:
     int addr_;
     i2c_cmd_handle_t cmd_handle_;
 };
+
+} // namespace screen
 
 #endif

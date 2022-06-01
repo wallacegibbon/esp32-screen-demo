@@ -2,6 +2,8 @@
 #include "esp_log.h"
 #include <cstdint>
 
+using namespace screen;
+
 void IIC_Dev::start_transmit() {
     cmd_handle_ = i2c_cmd_link_create();
     i2c_master_start(cmd_handle_);

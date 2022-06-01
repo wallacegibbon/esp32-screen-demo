@@ -1,6 +1,8 @@
 #include "Screen_16bitColor_SPI.h"
 #include <cstdint>
 
+using namespace screen;
+
 void Screen_16bitColor_SPI::init() {
     dev_.init();
     gpio_set_direction(rst_, GPIO_MODE_OUTPUT);

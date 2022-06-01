@@ -4,6 +4,8 @@
 #include "driver/spi_master.h"
 #include <cstdint>
 
+namespace screen {
+
 class SPI_Dev {
 public:
     SPI_Dev(int dev) : dev_(dev) {}
@@ -14,5 +16,7 @@ public:
 private:
     int dev_;
 };
+
+} // namespace screen
 
 #endif

@@ -3,6 +3,8 @@
 
 #include <cstdint>
 
+namespace screen {
+
 /// For 16 bit color, Red:Green:Blue == 5:6:5
 enum class Color_16bit : uint16_t {
     WHITE = 0xFFFF,
@@ -34,5 +36,7 @@ enum class Color_1bit : uint8_t {
     WHITE = 1,
     BLACK = 0,
 };
+
+} // namespace screen
 
 #endif

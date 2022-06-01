@@ -1,6 +1,8 @@
 #include "Screen_ST7735.h"
 #include "freertos/task.h"
 
+using namespace screen;
+
 void Screen_ST7735::init() {
     Screen_16bitColor_SPI::init();
 
@@ -135,7 +137,7 @@ void Screen_ST7735::addr_set(const Point &p1, const Point &p2) {
 }
 
 void Screen_ST7735::draw_point(const Point &p, Color_16bit color) {
-    if (p.x() > width_ || p.y() > height_) {
+    if (p.x() > size_.x() || p.y() > size_.y()) {
         return;
     }
     addr_set(p, p);

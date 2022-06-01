@@ -1,6 +1,8 @@
 #ifndef __SCREEN_H
 #define __SCREEN_H
 
+namespace screen {
+
 class CommonXY {
 public:
     CommonXY(int x, int y) : x_(x), y_(y) {}
@@ -17,11 +19,12 @@ private:
 };
 
 typedef CommonXY Point;
+typedef CommonXY Size;
 
 template <typename ColorType>
 class Screen {
 public:
-    Screen(int width, int height) : width_(width), height_(height) {}
+    Screen(int width, int height) : size_(width, height) {}
 
     /// the basic drawing functions
     virtual void draw_point(const Point &p, ColorType color) {}
@@ -40,8 +43,7 @@ public:
     void draw_circle(const Point &p, int r, ColorType color);
 
 protected:
-    int width_;
-    int height_;
+    CommonXY size_;
 };
 
 template <typename ColorType>
@@ -55,7 +57,7 @@ void Screen<ColorType>::fill(const Point &p1, const Point &p2, ColorType color) 
 
 template <typename ColorType>
 void Screen<ColorType>::clear(ColorType color) {
-    fill(Point(0, 0), Point(width_, height_), color);
+    fill(Point(0, 0), size_, color);
 }
 
 template <typename ColorType>
@@ -167,5 +169,7 @@ void Screen<ColorType>::draw_circle(const Point &p, int r, ColorType color) {
         }
     }
 }
+
+} // namespace screen
 
 #endif

@@ -1,5 +1,7 @@
 #include "Screen_SSD1306.h"
 
+using namespace screen;
+
 void Screen_SSD1306::init() {
     send_init_commands();
     display_on();
@@ -32,7 +34,7 @@ void Screen_SSD1306::send_init_commands() {
     start_transmit();
     cmd_multi_bytes();
 
-    if (height_ == 32) {
+    if (size_.y() == 32) {
         for (uint8_t cmd : fix_32row_command) {
             write_byte(cmd);
         }
@@ -97,7 +99,7 @@ void Screen_SSD1306::display_off() {
 }
 
 void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
-    if (p.x() >= width_ || p.y() >= height_) {
+    if (p.x() >= size_.x() || p.y() >= size_.y()) {
         return;
     }
 
@@ -137,7 +139,7 @@ void Screen_SSD1306::iterate_screen(std::function<uint8_t(int, int)> fn) {
         write_byte(0x10);
 
         data_multi_bytes();
-        for (int x = 0; x < width_; x++) {
+        for (int x = 0; x < size_.x(); x++) {
             write_byte(fn(x, page));
         }
 

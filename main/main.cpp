@@ -1,6 +1,7 @@
 #include "Screen_SSD1306.h"
 #include "driver/i2c.h"
 #include "esp_log.h"
+#include "freertos/task.h"
 #include <iostream>
 
 void i2c_device_init() {
@@ -17,14 +18,14 @@ void i2c_device_init() {
     i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0);
 }
 
-Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
+screen::Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
 static void fancy_display_1() {
     static unsigned short current_color = 0;
     static bool color = false;
     for (int i = 0; i < 31; i++) {
         current_color += 20;
-        scr1.draw_circle(Point(64, 32), i, static_cast<Color_1bit>(color));
+        scr1.draw_circle(screen::Point(64, 32), i, static_cast<screen::Color_1bit>(color));
         color = !color;
         scr1.flush();
     }
@@ -35,8 +36,8 @@ static void fancy_display_2() {
     static int cur = 0;
     static int inc = 1;
     for (int i = 0; i < 31; i++) {
-        Color_1bit color = cur == i ? Color_1bit::BLACK : Color_1bit::WHITE;
-        scr1.draw_circle(Point(64, 32), i, color);
+        screen::Color_1bit color = cur == i ? screen::Color_1bit::BLACK : screen::Color_1bit::WHITE;
+        scr1.draw_circle(screen::Point(64, 32), i, color);
     }
     scr1.flush();
     if (cur == 31) {
@@ -57,8 +58,8 @@ void entry() {
     scr1.init();
     // scr1.up_down_invert();
     // scr1.clear(Color_1bit::BLACK);
-    scr1.draw_rectangle(Point(64 - 50, 32 - 20), Point(64 + 50, 32 + 20), Color_1bit::WHITE);
-    scr1.draw_circle(Point(64 - 50, 32 - 20), 5, Color_1bit::WHITE);
+    scr1.draw_rectangle(screen::Point(64 - 50, 32 - 20), screen::Point(64 + 50, 32 + 20), screen::Color_1bit::WHITE);
+    scr1.draw_circle(screen::Point(64 - 50, 32 - 20), 5, screen::Color_1bit::WHITE);
     scr1.flush();
     // scr1.enable_auto_flush();
     while (1) {

@@ -10,6 +10,8 @@
 #include <cstdint>
 #include <functional>
 
+namespace screen {
+
 class Screen_SSD1306 : public Screen<Color_1bit> {
 public:
     Screen_SSD1306(int width, int height) : Screen(width, height) {}
@@ -69,5 +71,7 @@ private:
 private:
     IIC_Dev dev_;
 };
+
+} // namespace screen
 
 #endif
