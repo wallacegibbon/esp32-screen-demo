@@ -14,15 +14,18 @@ to you settings file (For Linux, it's ~/.config/Code/User/settings.json)
 ```jsonc
 {
     //...
-    "idf.espIdfPath": "/home/wallace/esp/esp-idf",
-    "idf.pythonBinPath": "/home/wallace/.espressif/python_env/idf4.4_py3.8_env/bin/python",
-    "idf.toolsPath": "/home/wallace/.espressif",
-    "idf.customExtraPaths": "/home/wallace/.espressif/tools/xtensa-esp32-elf/esp-2021r2-8.4.0/xtensa-esp32-elf/bin:/home/wallace/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-8.4.0/xtensa-esp32s2-elf/bin:/home/wallace/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin:/home/wallace/.espressif/tools/riscv32-esp-elf/esp-2021r2-8.4.0/riscv32-esp-elf/bin:/home/wallace/.espressif/tools/esp32ulp-elf/2.28.51-esp-20191205/esp32ulp-elf-binutils/bin:/home/wallace/.espressif/tools/esp32s2ulp-elf/2.28.51-esp-20191205/esp32s2ulp-elf-binutils/bin:/home/wallace/.espressif/tools/cmake/3.20.3/bin:/home/wallace/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/bin:/home/wallace/.espressif/tools/ninja/1.10.2",
-    "idf.customExtraVars": "{\"OPENOCD_SCRIPTS\":\"/home/wallace/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/share/openocd/scripts\"}",
-    "idf.gitPath": "/usr/bin/git",
+    "idf.espIdfPath": "${env:IDF_PATH}",
+    "idf.pythonBinPath": "${env:HOME}/.espressif/python_env/idf4.4_py3.8_env/bin/python",
+    "idf.toolsPath": "${env:HOME}/.espressif",
+    "idf.customExtraPaths": "${env:HOME}/.espressif/tools/xtensa-esp32-elf/esp-2021r2-8.4.0/xtensa-esp32-elf/bin:${env:HOME}/.espressif/tools/xtensa-esp32s2-elf/esp-2021r2-8.4.0/xtensa-esp32s2-elf/bin:${env:HOME}/.espressif/tools/xtensa-esp32s3-elf/esp-2021r2-8.4.0/xtensa-esp32s3-elf/bin:${env:HOME}/.espressif/tools/riscv32-esp-elf/esp-2021r2-8.4.0/riscv32-esp-elf/bin:${env:HOME}/.espressif/tools/esp32ulp-elf/2.28.51-esp-20191205/esp32ulp-elf-binutils/bin:${env:HOME}/.espressif/tools/esp32s2ulp-elf/2.28.51-esp-20191205/esp32s2ulp-elf-binutils/bin:${env:HOME}/.espressif/tools/cmake/3.20.3/bin:${env:HOME}/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/bin:${env:HOME}/.espressif/tools/ninja/1.10.2",
+    "idf.customExtraVars": "{\"OPENOCD_SCRIPTS\":\"${env:HOME}/.espressif/tools/openocd-esp32/v0.11.0-esp32-20211220/openocd-esp32/share/openocd/scripts\"}",
+    "idf.gitPath": "/usr/bin/git"
     //...
 }
 ```
+
+The environment variable `IDF_PATH` is also used by CMakeLists.txt,
+so setting `idf.espIdfPath` (of VSCode) by `IDF_PATH` is a good way to keep the configuration consistent.
 
 ### Notice
 
