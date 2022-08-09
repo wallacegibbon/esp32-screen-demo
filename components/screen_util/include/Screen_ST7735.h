@@ -9,17 +9,18 @@ namespace screen {
 
 class Screen_ST7735 : public Screen_16bitColor_SPI {
 public:
-    Screen_ST7735(int dev, gpio_num_t rst, gpio_num_t dc, int width, int height)
-            : Screen_16bitColor_SPI(dev, rst, dc, width, height) {}
+	Screen_ST7735(int dev, gpio_num_t rst, gpio_num_t dc,
+		int width, int height) :
+		Screen_16bitColor_SPI(dev, rst, dc, width, height) {}
 
-    void draw_point(const Point &p, Color_16bit color) override;
-    void fill(const Point &p1, const Point &p2, Color_16bit color) override;
+	void draw_point(const Point &p, Color_16bit color) override;
+	void fill(const Point &p1, const Point &p2, Color_16bit color) override;
 
-    void init();
+	void init();
 
 private:
-    void send_init_commands();
-    void addr_set(const Point &p1, const Point &p2);
+	void send_init_commands();
+	void addr_set(const Point &p1, const Point &p2);
 };
 
 } // namespace screen
