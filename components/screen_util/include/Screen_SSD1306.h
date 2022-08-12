@@ -30,6 +30,7 @@ public:
 
 private:
 	void send_init_commands();
+	void iterate_page(int page_idx, std::function<uint8_t(int, int)> fn);
 	void iterate_screen(std::function<uint8_t(int, int)> fn);
 
 	virtual void write_byte(uint8_t data) {}

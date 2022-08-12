@@ -124,22 +124,28 @@ void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
 	stop_transmit();
 }
 
+void Screen_SSD1306::iterate_page(
+	int page_idx,
+	std::function<uint8_t(int, int)> fn) {
+
+	start_transmit();
+	cmd_single_byte();
+	write_byte(0xB0 + page_idx);
+	cmd_single_byte();
+	write_byte(0x00);
+	cmd_single_byte();
+	write_byte(0x10);
+
+	data_multi_bytes();
+	for (int x = 0; x < size_.x(); x++)
+		write_byte(fn(x, page_idx));
+
+	stop_transmit();
+}
+
 void Screen_SSD1306::iterate_screen(std::function<uint8_t(int, int)> fn) {
-	for (int page = 0; page < 8; page++) {
-		start_transmit();
-		cmd_single_byte();
-		write_byte(0xB0 + page);
-		cmd_single_byte();
-		write_byte(0x00);
-		cmd_single_byte();
-		write_byte(0x10);
-
-		data_multi_bytes();
-		for (int x = 0; x < size_.x(); x++)
-			write_byte(fn(x, page));
-
-		stop_transmit();
-	}
+	for (int page = 0; page < 8; page++)
+		iterate_page(page, fn);
 }
 
 void Screen_SSD1306::flush() {
@@ -150,3 +156,4 @@ void Screen_SSD1306::clear(Color_1bit color) {
 	uint8_t fill_value = color == Color_1bit::WHITE ? 0xFF : 0;
 	iterate_screen([&](int x, int page) { return fill_value; });
 }
+
