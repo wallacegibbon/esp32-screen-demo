@@ -138,16 +138,16 @@ void LinePainter<ColorType>::draw_line() {
 
 template <typename ColorType>
 void Screen<ColorType>::draw_line(const Point &p1, const Point &p2,
-	ColorType color) {
-
+	ColorType color)
+{
 	LinePainter<ColorType> p(*this, p1, p2, color);
 	p.draw_line();
 }
 
 template <typename ColorType>
 void Screen<ColorType>::draw_rectangle(const Point &p1, const Point &p2,
-	ColorType color) {
-
+	ColorType color)
+{
 	draw_line(p1, Point(p2.x(), p1.y()), color);
 	draw_line(p2, Point(p1.x(), p2.y()), color);
 
@@ -157,8 +157,8 @@ void Screen<ColorType>::draw_rectangle(const Point &p1, const Point &p2,
 
 template <typename ColorType>
 void Screen<ColorType>::draw_point_x(const Point &p, int a, int b,
-	ColorType color) {
-
+	ColorType color)
+{
 	draw_point(Point(p.x() - a, p.y() + b), color);
 	draw_point(Point(p.x() + a, p.y() - b), color);
 

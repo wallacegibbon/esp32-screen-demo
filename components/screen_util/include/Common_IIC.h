@@ -13,7 +13,8 @@ public:
 
 	void start_transmit();
 	void stop_transmit();
-	void write_byte(uint8_t data) { i2c_master_write_byte(cmd_handle_, data, true); }
+	void write_byte(uint8_t data)
+		{ i2c_master_write_byte(cmd_handle_, data, true); }
 
 private:
 	int dev_;

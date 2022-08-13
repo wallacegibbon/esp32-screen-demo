@@ -150,3 +150,4 @@ void Screen_ST7735::fill(const Point &p1, const Point &p2, Color_16bit color) {
 		for (int j = p1.x(); j <= p2.x(); j++)
 			write_data(static_cast<uint16_t>(color));
 }
+

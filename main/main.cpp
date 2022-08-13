@@ -25,7 +25,9 @@ static void fancy_display_1() {
 	static bool color = false;
 	for (int i = 0; i < 31; i++) {
 		current_color += 20;
-		scr1.draw_circle(screen::Point(64, 32), i,
+		scr1.draw_circle(
+			screen::Point(64, 32),
+			i,
 			static_cast<screen::Color_1bit>(color));
 
 		color = !color;
