@@ -62,7 +62,11 @@ void Screen<ColorType>::clear(ColorType color) {
 
 template <typename ColorType>
 void Screen<ColorType>::draw_point_big(const Point &p, ColorType color) {
-	fill(Point(p.x() - 1, p.y() - 1), Point(p.x() + 2, p.y() + 2), color);
+	fill(
+		Point(p.x() - 1, p.y() - 1),
+		Point(p.x() + 2, p.y() + 2),
+		color
+	);
 }
 
 template <typename T>
@@ -83,8 +87,12 @@ static inline T unit_value(T v) {
 template <typename ColorType>
 class LinePainter {
 public:
-	LinePainter(Screen<ColorType> &screen,
-		const Point &p1, const Point &p2, ColorType color1);
+	LinePainter(
+		Screen<ColorType> &screen,
+		const Point &p1,
+		const Point &p2,
+		ColorType color1
+	);
 
 	void draw_line();
 
@@ -102,10 +110,16 @@ private:
 };
 
 template <typename ColorType>
-LinePainter<ColorType>::LinePainter(Screen<ColorType> &screen,
-	const Point &p1, const Point &p2, ColorType color) :
-	screen_(screen), cursor_(p1),
-	delta_(p2.x() - p1.x(), p2.y() - p1.y()), color_(color)
+LinePainter<ColorType>::LinePainter(
+	Screen<ColorType> &screen,
+	const Point &p1,
+	const Point &p2,
+	ColorType color
+) :
+	screen_(screen),
+	cursor_(p1),
+	delta_(p2.x() - p1.x(), p2.y() - p1.y()),
+	color_(color)
 {
 
 	step_.set_x(unit_value(delta_.x()));
@@ -137,17 +151,17 @@ void LinePainter<ColorType>::draw_line() {
 }
 
 template <typename ColorType>
-void Screen<ColorType>::draw_line(const Point &p1, const Point &p2,
-	ColorType color)
-{
+void Screen<ColorType>::draw_line(
+	const Point &p1, const Point &p2, ColorType color
+) {
 	LinePainter<ColorType> p(*this, p1, p2, color);
 	p.draw_line();
 }
 
 template <typename ColorType>
-void Screen<ColorType>::draw_rectangle(const Point &p1, const Point &p2,
-	ColorType color)
-{
+void Screen<ColorType>::draw_rectangle(
+	const Point &p1, const Point &p2, ColorType color
+) {
 	draw_line(p1, Point(p2.x(), p1.y()), color);
 	draw_line(p2, Point(p1.x(), p2.y()), color);
 
@@ -156,9 +170,9 @@ void Screen<ColorType>::draw_rectangle(const Point &p1, const Point &p2,
 }
 
 template <typename ColorType>
-void Screen<ColorType>::draw_point_x(const Point &p, int a, int b,
-	ColorType color)
-{
+void Screen<ColorType>::draw_point_x(
+	const Point &p, int a, int b, ColorType color
+) {
 	draw_point(Point(p.x() - a, p.y() + b), color);
 	draw_point(Point(p.x() + a, p.y() - b), color);
 

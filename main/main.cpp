@@ -28,7 +28,8 @@ static void fancy_display_1() {
 		scr1.draw_circle(
 			screen::Point(64, 32),
 			i,
-			static_cast<screen::Color_1bit>(color));
+			static_cast<screen::Color_1bit>(color)
+		);
 
 		color = !color;
 		scr1.flush();
@@ -71,12 +72,14 @@ void entry() {
 	scr1.draw_rectangle(
 		screen::Point(64 - 50, 32 - 20),
 		screen::Point(64 + 50, 32 + 20),
-		screen::Color_1bit::WHITE);
+		screen::Color_1bit::WHITE
+	);
 
 	scr1.draw_circle(
 		screen::Point(64 - 50, 32 - 20),
 		5,
-		screen::Color_1bit::WHITE);
+		screen::Color_1bit::WHITE
+	);
 
 	scr1.flush();
 	// scr1.enable_auto_flush();
