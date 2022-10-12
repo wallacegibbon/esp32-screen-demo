@@ -125,9 +125,8 @@ void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
 }
 
 void Screen_SSD1306::iterate_page(
-	int page_idx,
-	std::function<uint8_t(int, int)> fn) {
-
+	int page_idx, std::function<uint8_t(int, int)> fn
+) {
 	start_transmit();
 	cmd_single_byte();
 	write_byte(0xB0 + page_idx);

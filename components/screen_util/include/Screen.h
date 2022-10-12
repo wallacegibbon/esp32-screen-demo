@@ -47,9 +47,9 @@ protected:
 };
 
 template <typename ColorType>
-void Screen<ColorType>::fill(const Point &p1, const Point &p2,
-	ColorType color) {
-
+void Screen<ColorType>::fill(
+	const Point &p1, const Point &p2, ColorType color
+) {
 	for (int i = p1.x(); i < p2.x(); i++)
 		for (int j = p1.y(); j < p2.y(); j++)
 			draw_point(Point(i, j), color);
