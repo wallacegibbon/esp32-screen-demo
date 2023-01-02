@@ -56,7 +56,7 @@ class Screen_SSD1306_IIC : public Screen_SSD1306 {
 
 public:
   Screen_SSD1306_IIC(int dev, int addr, int width, int height)
-      : Screen_SSD1306(width, height), dev_(dev, addr) {}
+    : Screen_SSD1306(width, height), dev_(dev, addr) {}
 
   void init() { Screen_SSD1306::init(); }
 

@@ -42,10 +42,11 @@ static void fancy_display_2() {
   }
   scr1.flush();
 
-  if (cur == 31)
+  if (cur == 31) {
     inc = -1;
-  else if (cur == 0)
+  } else if (cur == 0) {
     inc = 1;
+  }
 
   cur += inc;
   // vTaskDelay(10 / portTICK_PERIOD_MS);
@@ -61,16 +62,18 @@ void entry() {
   // scr1.up_down_invert();
   // scr1.clear(Color_1bit::BLACK);
 
-  scr1.draw_rectangle(screen::Point(64 - 50, 32 - 20), screen::Point(64 + 50, 32 + 20),
-                      screen::Color_1bit::WHITE);
+  scr1.draw_rectangle(
+    screen::Point(64 - 50, 32 - 20), screen::Point(64 + 50, 32 + 20), screen::Color_1bit::WHITE
+  );
 
   scr1.draw_circle(screen::Point(64 - 50, 32 - 20), 5, screen::Color_1bit::WHITE);
 
   scr1.flush();
   // scr1.enable_auto_flush();
 
-  while (1)
+  while (1) {
     fancy_display_2();
+  }
 }
 
 extern "C" {

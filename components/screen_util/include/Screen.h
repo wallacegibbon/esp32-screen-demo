@@ -48,9 +48,11 @@ protected:
 
 template <typename ColorType>
 void Screen<ColorType>::fill(const Point &p1, const Point &p2, ColorType color) {
-  for (int i = p1.x(); i < p2.x(); i++)
-    for (int j = p1.y(); j < p2.y(); j++)
+  for (int i = p1.x(); i < p2.x(); i++) {
+    for (int j = p1.y(); j < p2.y(); j++) {
       draw_point(Point(i, j), color);
+    }
+  }
 }
 
 template <typename ColorType>
@@ -99,9 +101,10 @@ private:
 };
 
 template <typename ColorType>
-LinePainter<ColorType>::LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2,
-                                    ColorType color)
-    : screen_(screen), cursor_(p1), delta_(p2.x() - p1.x(), p2.y() - p1.y()), color_(color) {
+LinePainter<ColorType>::LinePainter(
+  Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color
+)
+  : screen_(screen), cursor_(p1), delta_(p2.x() - p1.x(), p2.y() - p1.y()), color_(color) {
 
   step_.set_x(unit_value(delta_.x()));
   step_.set_y(unit_value(delta_.y()));
@@ -127,8 +130,9 @@ void LinePainter<ColorType>::draw_step() {
 
 template <typename ColorType>
 void LinePainter<ColorType>::draw_line() {
-  for (int i = 0; i <= distance_; i++)
+  for (int i = 0; i <= distance_; i++) {
     draw_step();
+  }
 }
 
 template <typename ColorType>
@@ -164,8 +168,9 @@ void Screen<ColorType>::draw_circle(const Point &p, int r, ColorType color) {
     draw_point_x(p, py, px, color);
     draw_point_x(p, px, py, color);
     py++;
-    if ((py * py + px * px) > r_square)
+    if ((py * py + px * px) > r_square) {
       px--;
+    }
   }
 }
 

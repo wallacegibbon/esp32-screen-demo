@@ -137,16 +137,18 @@ void Screen_ST7735::addr_set(const Point &p1, const Point &p2) {
 }
 
 void Screen_ST7735::draw_point(const Point &p, Color_16bit color) {
-  if (p.x() > size_.x() || p.y() > size_.y())
+  if (p.x() > size_.x() || p.y() > size_.y()) {
     return;
-
+  }
   addr_set(p, p);
   write_data(static_cast<uint16_t>(color));
 }
 
 void Screen_ST7735::fill(const Point &p1, const Point &p2, Color_16bit color) {
   addr_set(p1, p2);
-  for (int i = p1.y(); i <= p2.y(); i++)
-    for (int j = p1.x(); j <= p2.x(); j++)
+  for (int i = p1.y(); i <= p2.y(); i++) {
+    for (int j = p1.x(); j <= p2.x(); j++) {
       write_data(static_cast<uint16_t>(color));
+    }
+  }
 }
