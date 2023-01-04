@@ -7,8 +7,8 @@
 void i2c_device_init() {
   i2c_config_t config;
   config.mode = I2C_MODE_MASTER;
-  config.sda_io_num = GPIO_NUM_22;
-  config.scl_io_num = GPIO_NUM_23;
+  config.sda_io_num = GPIO_NUM_41;
+  config.scl_io_num = GPIO_NUM_40;
   config.sda_pullup_en = GPIO_PULLUP_ENABLE;
   config.scl_pullup_en = GPIO_PULLUP_ENABLE;
   config.master.clk_speed = 400000;
