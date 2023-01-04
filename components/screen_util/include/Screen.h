@@ -3,23 +3,15 @@
 
 namespace screen {
 
-class CommonXY {
-public:
-  CommonXY(int x, int y) : x_(x), y_(y) {}
+struct CommonXY {
+  CommonXY(int x, int y) : x(x), y(y) {}
   CommonXY() : CommonXY(0, 0) {}
-  CommonXY(const CommonXY &p) : CommonXY(p.x(), p.y()) {}
-  int x() const { return x_; }
-  int y() const { return y_; }
-  void set_x(int v) { x_ = v; }
-  void set_y(int v) { y_ = v; }
-
-private:
-  int x_;
-  int y_;
+  CommonXY(const CommonXY &p) : CommonXY(p.x, p.y) {}
+  int x, y;
 };
 
-typedef CommonXY Point;
 typedef CommonXY Size;
+typedef CommonXY Point;
 
 template <typename ColorType>
 class Screen {
@@ -48,21 +40,21 @@ protected:
 
 template <typename ColorType>
 void Screen<ColorType>::fill(const Point &p1, const Point &p2, ColorType color) {
-  for (int i = p1.x(); i < p2.x(); i++) {
-    for (int j = p1.y(); j < p2.y(); j++) {
-      draw_point(Point(i, j), color);
+  for (int i = p1.x; i < p2.x; i++) {
+    for (int j = p1.y; j < p2.y; j++) {
+      draw_point(Point{i, j}, color);
     }
   }
 }
 
 template <typename ColorType>
 void Screen<ColorType>::clear(ColorType color) {
-  fill(Point(0, 0), size_, color);
+  fill(Point{0, 0}, size_, color);
 }
 
 template <typename ColorType>
 void Screen<ColorType>::draw_point_big(const Point &p, ColorType color) {
-  fill(Point(p.x() - 1, p.y() - 1), Point(p.x() + 2, p.y() + 2), color);
+  fill(Point{p.x - 1, p.y - 1}, Point{p.x + 2, p.y + 2}, color);
 }
 
 template <typename T>
@@ -84,7 +76,6 @@ template <typename ColorType>
 class LinePainter {
 public:
   LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color1);
-
   void draw_line();
 
 private:
@@ -104,27 +95,27 @@ template <typename ColorType>
 LinePainter<ColorType>::LinePainter(
   Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color
 )
-  : screen_(screen), cursor_(p1), delta_(p2.x() - p1.x(), p2.y() - p1.y()), color_(color) {
+  : screen_(screen), cursor_(p1), delta_(p2.x - p1.x, p2.y - p1.y), color_(color) {
 
-  step_.set_x(unit_value(delta_.x()));
-  step_.set_y(unit_value(delta_.y()));
-  delta_.set_x(abs(delta_.x()));
-  delta_.set_y(abs(delta_.y()));
-  distance_ = max(delta_.x(), delta_.y());
+  step_.x = unit_value(delta_.x);
+  step_.y = unit_value(delta_.y);
+  delta_.x = abs(delta_.x);
+  delta_.y = abs(delta_.y);
+  distance_ = max(delta_.x, delta_.y);
 }
 
 template <typename ColorType>
 void LinePainter<ColorType>::draw_step() {
   screen_.draw_point(cursor_, color_);
-  acc_.set_x(acc_.x() + delta_.x());
-  if (acc_.x() >= distance_) {
-    acc_.set_x(acc_.x() - distance_);
-    cursor_.set_x(cursor_.x() + step_.x());
+  acc_.x += delta_.x;
+  if (acc_.x >= distance_) {
+    acc_.x -= distance_;
+    cursor_.x += step_.x;
   }
-  acc_.set_y(acc_.y() + delta_.y());
-  if (acc_.y() >= distance_) {
-    acc_.set_y(acc_.y() - distance_);
-    cursor_.set_y(cursor_.y() + step_.y());
+  acc_.y += delta_.y;
+  if (acc_.y >= distance_) {
+    acc_.y -= distance_;
+    cursor_.y += step_.y;
   }
 }
 
@@ -143,20 +134,20 @@ void Screen<ColorType>::draw_line(const Point &p1, const Point &p2, ColorType co
 
 template <typename ColorType>
 void Screen<ColorType>::draw_rectangle(const Point &p1, const Point &p2, ColorType color) {
-  draw_line(p1, Point(p2.x(), p1.y()), color);
-  draw_line(p2, Point(p1.x(), p2.y()), color);
+  draw_line(p1, Point{p2.x, p1.y}, color);
+  draw_line(p2, Point{p1.x, p2.y}, color);
 
-  draw_line(Point(p1.x(), p2.y()), p1, color);
-  draw_line(Point(p2.x(), p1.y()), p2, color);
+  draw_line(Point{p1.x, p2.y}, p1, color);
+  draw_line(Point{p2.x, p1.y}, p2, color);
 }
 
 template <typename ColorType>
 void Screen<ColorType>::draw_point_x(const Point &p, int a, int b, ColorType color) {
-  draw_point(Point(p.x() - a, p.y() + b), color);
-  draw_point(Point(p.x() + a, p.y() - b), color);
+  draw_point(Point{p.x - a, p.y + b}, color);
+  draw_point(Point{p.x + a, p.y - b}, color);
 
-  draw_point(Point(p.x() - a, p.y() - b), color);
-  draw_point(Point(p.x() + a, p.y() + b), color);
+  draw_point(Point{p.x - a, p.y - b}, color);
+  draw_point(Point{p.x + a, p.y + b}, color);
 }
 
 template <typename ColorType>
@@ -168,9 +159,7 @@ void Screen<ColorType>::draw_circle(const Point &p, int r, ColorType color) {
     draw_point_x(p, py, px, color);
     draw_point_x(p, px, py, color);
     py++;
-    if ((py * py + px * px) > r_square) {
-      px--;
-    }
+    if ((py * py + px * px) > r_square) { px--; }
   }
 }
 

@@ -6,3 +6,5 @@ AccessModifierOffset: -2
 ColumnLimit: 100
 AlwaysBreakTemplateDeclarations: Yes
 AlignAfterOpenBracket: BlockIndent
+AllowShortBlocksOnASingleLine: Always
+AllowShortIfStatementsOnASingleLine: WithoutElse

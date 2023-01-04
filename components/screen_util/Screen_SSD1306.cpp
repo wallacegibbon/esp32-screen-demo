@@ -34,7 +34,7 @@ void Screen_SSD1306::send_init_commands() {
   start_transmit();
   cmd_multi_bytes();
 
-  if (size_.y() == 32) {
+  if (size_.y == 32) {
     for (uint8_t cmd : fix_32row_command) {
       write_byte(cmd);
     }
@@ -99,27 +99,24 @@ void Screen_SSD1306::display_off() {
 }
 
 void Screen_SSD1306::draw_point(const Point &p, Color_1bit color) {
-  if (p.x() >= size_.x() || p.y() >= size_.y()) {
-    return;
-  }
-  int page_idx = p.y() / 8;
-  int byte_idx = p.y() % 8;
+  if (p.x >= size_.x || p.y >= size_.y) { return; }
+  int page_idx = p.y / 8;
+  int byte_idx = p.y % 8;
 
-  int tmp = buf_[p.x()][page_idx];
+  int tmp = buf_[p.x][page_idx];
   tmp &= ~(1 << byte_idx);
   tmp |= static_cast<int>(color) << byte_idx;
-  buf_[p.x()][page_idx] = tmp;
+  buf_[p.x][page_idx] = tmp;
 
-  if (!auto_flush_) {
-    return;
-  }
+  if (!auto_flush_) { return; }
+
   start_transmit();
   cmd_single_byte();
   write_byte(0xB0 + page_idx);
   cmd_single_byte();
-  write_byte(((p.x() >> 4) & 0x0F) | 0x10);
+  write_byte(((p.x >> 4) & 0x0F) | 0x10);
   cmd_single_byte();
-  write_byte(p.x() & 0x0F);
+  write_byte(p.x & 0x0F);
 
   data_single_byte();
   write_byte(tmp);
@@ -136,7 +133,7 @@ void Screen_SSD1306::iterate_page(int page_idx, std::function<uint8_t(int, int)>
   write_byte(0x10);
 
   data_multi_bytes();
-  for (int x = 0; x < size_.x(); x++) {
+  for (int x = 0; x < size_.x; x++) {
     write_byte(fn(x, page_idx));
   }
 
