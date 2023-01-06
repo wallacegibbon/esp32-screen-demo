@@ -13,7 +13,7 @@
 namespace screen {
 
 class Screen_SSD1306 : public Screen<Color_1bit> {
-  uint8_t buf_[128][8];
+  uint8_t buf_[128][8] = {};
   int direction_ = 0;
   bool auto_flush_ = false;
 

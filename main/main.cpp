@@ -4,6 +4,8 @@
 #include "freertos/task.h"
 #include <iostream>
 
+// screen::Screen<screen::Color_1bit> *scr1 = new screen::Screen_SSD1306_IIC(I2C_NUM_0, 0x3C, 128, 64);
+// screen::Screen_SSD1306 *scr1 = new screen::Screen_SSD1306_IIC(I2C_NUM_0, 0x3C, 128, 64);
 screen::Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
 void i2c_device_init() {
