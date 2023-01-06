@@ -4,10 +4,10 @@
 namespace screen {
 
 struct CommonXY {
+  int x, y;
   CommonXY(int x, int y) : x(x), y(y) {}
   CommonXY() : CommonXY(0, 0) {}
   CommonXY(const CommonXY &p) : CommonXY(p.x, p.y) {}
-  int x, y;
 };
 
 typedef CommonXY Size;
@@ -15,6 +15,9 @@ typedef CommonXY Point;
 
 template <typename ColorType>
 class Screen {
+protected:
+  CommonXY size_;
+
 public:
   Screen(int width, int height) : size_(width, height) {}
 
@@ -33,9 +36,6 @@ public:
   /// helper for drawing circle
   void draw_point_x(const Point &p, int a, int b, ColorType color);
   void draw_circle(const Point &p, int r, ColorType color);
-
-protected:
-  CommonXY size_;
 };
 
 template <typename ColorType>
@@ -74,14 +74,6 @@ static inline T unit_value(T v) {
 
 template <typename ColorType>
 class LinePainter {
-public:
-  LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color1);
-  void draw_line();
-
-private:
-  void draw_step();
-
-private:
   Screen<ColorType> &screen_;
   CommonXY cursor_;
   CommonXY delta_;
@@ -89,6 +81,13 @@ private:
   CommonXY acc_;
   int distance_;
   ColorType color_;
+
+public:
+  LinePainter(Screen<ColorType> &screen, const Point &p1, const Point &p2, ColorType color1);
+  void draw_line();
+
+private:
+  void draw_step();
 };
 
 template <typename ColorType>

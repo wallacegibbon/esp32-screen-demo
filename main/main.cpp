@@ -4,6 +4,8 @@
 #include "freertos/task.h"
 #include <iostream>
 
+screen::Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
+
 void i2c_device_init() {
   i2c_config_t config;
   config.mode = I2C_MODE_MASTER;
@@ -17,8 +19,6 @@ void i2c_device_init() {
   i2c_param_config(I2C_NUM_0, &config);
   i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0);
 }
-
-screen::Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
 static void fancy_display_1() {
   static unsigned short current_color = 0;
@@ -60,7 +60,7 @@ void entry() {
 
   scr1.init();
   // scr1.up_down_invert();
-  // scr1.clear(Color_1bit::BLACK);
+  scr1.clear(screen::Color_1bit::BLACK);
 
   scr1.draw_rectangle(
     screen::Point{64 - 50, 32 - 20}, screen::Point{64 + 50, 32 + 20}, screen::Color_1bit::WHITE

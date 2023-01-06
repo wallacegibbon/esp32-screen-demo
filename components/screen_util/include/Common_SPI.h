@@ -7,14 +7,13 @@
 namespace screen {
 
 class SPI_Dev {
+  int dev_;
+
 public:
   SPI_Dev(int dev) : dev_(dev) {}
 
   void init() {}
   void write_byte(uint8_t data) {}
-
-private:
-  int dev_;
 };
 
 } // namespace screen
