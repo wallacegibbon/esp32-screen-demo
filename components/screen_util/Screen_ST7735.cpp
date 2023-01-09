@@ -3,18 +3,6 @@
 
 using namespace screen;
 
-void Screen_ST7735::init() {
-  Screen_16bitColor_SPI::init();
-
-  rst_low();
-  vTaskDelay(200 / portTICK_PERIOD_MS);
-
-  rst_high();
-  vTaskDelay(20 / portTICK_PERIOD_MS);
-
-  send_init_commands();
-}
-
 void Screen_ST7735::send_init_commands() {
   /// turn off sleep mode
   write_cmd(0x11);
@@ -149,4 +137,33 @@ void Screen_ST7735::fill(const Point &p1, const Point &p2, Color_16bit color) {
       write_data(static_cast<uint16_t>(color));
     }
   }
+}
+
+void Screen_ST7735_SPI::init() {
+  gpio_set_direction(rst_, GPIO_MODE_OUTPUT);
+  gpio_set_direction(dc_, GPIO_MODE_OUTPUT);
+
+  rst_low();
+  vTaskDelay(200 / portTICK_PERIOD_MS);
+
+  rst_high();
+  vTaskDelay(20 / portTICK_PERIOD_MS);
+
+  send_init_commands();
+}
+
+void Screen_ST7735_SPI::write_data(uint16_t data) {
+  dc_high();
+  dev_.write_byte(data >> 8);
+  dev_.write_byte(data);
+}
+
+void Screen_ST7735_SPI::write_data8(uint8_t data) {
+  dc_high();
+  dev_.write_byte(data);
+}
+
+void Screen_ST7735_SPI::write_cmd(uint8_t data) {
+  dc_low();
+  dev_.write_byte(data);
 }

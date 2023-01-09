@@ -7,12 +7,12 @@
 namespace screen {
 
 class SPI_Dev {
+  spi_device_handle_t slave_dev_;
   int dev_;
 
 public:
-  SPI_Dev(int dev) : dev_(dev) {}
+  SPI_Dev(int dev, spi_device_handle_t &slave_dev) : slave_dev_(slave_dev), dev_(dev) {}
 
-  void init() {}
   void write_byte(uint8_t data) {}
 };
 

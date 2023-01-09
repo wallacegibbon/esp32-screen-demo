@@ -1,11 +1,10 @@
 #include "Screen_SSD1306.h"
 #include "driver/i2c.h"
+#include "driver/spi_master.h"
 #include "esp_log.h"
 #include "freertos/task.h"
 #include <iostream>
 
-// screen::Screen<screen::Color_1bit> *scr1 = new screen::Screen_SSD1306_IIC(I2C_NUM_0, 0x3C, 128, 64);
-// screen::Screen_SSD1306 *scr1 = new screen::Screen_SSD1306_IIC(I2C_NUM_0, 0x3C, 128, 64);
 screen::Screen_SSD1306_IIC scr1(I2C_NUM_0, 0x3C, 128, 64);
 
 void i2c_device_init() {
@@ -20,6 +19,31 @@ void i2c_device_init() {
 
   i2c_param_config(I2C_NUM_0, &config);
   i2c_driver_install(I2C_NUM_0, I2C_MODE_MASTER, 0, 0, 0);
+}
+
+void spi_device_init(spi_device_handle_t *dev) {
+  spi_bus_config_t bus_config;
+  bus_config.mosi_io_num = GPIO_NUM_3;
+  bus_config.miso_io_num = GPIO_NUM_3;
+  bus_config.sclk_io_num = GPIO_NUM_5;
+  spi_bus_initialize(SPI2_HOST, &bus_config, SPI_DMA_DISABLED);
+
+  spi_device_interface_config_t interface_config;
+  interface_config.address_bits = 0;
+  interface_config.command_bits = 0;
+  interface_config.mode = 0;
+  interface_config.duty_cycle_pos = 0;
+  interface_config.cs_ena_pretrans = 0;
+  interface_config.cs_ena_posttrans = 0;
+  interface_config.input_delay_ns = 0;
+  interface_config.clock_speed_hz = 0;
+  interface_config.spics_io_num = GPIO_NUM_0;
+  interface_config.flags = SPI_DEVICE_NO_DUMMY;
+  interface_config.queue_size = 1;
+  interface_config.pre_cb = 0;
+  interface_config.post_cb = 0;
+
+  spi_bus_add_device(SPI2_HOST, &interface_config, dev);
 }
 
 static void fancy_display_1() {
